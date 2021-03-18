@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2021-03-16T14:40:44.518Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36" etag="vjBZUf_K11-9UgS227-t" version="14.4.8" type="github">
+<mxfile host="app.diagrams.net" modified="2021-03-18T01:31:03.650Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36" etag="o_0gaGKawv32b-yhqpjM" version="14.4.8" type="github">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
-    <mxGraphModel dx="1221" dy="687" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1038" dy="584" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
@@ -68,18 +68,16 @@
         <mxCell id="BhRJRYYAKcvQ0J8DfjrN-20" value="Leer archivo" style="whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="175" y="760" width="90" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="BhRJRYYAKcvQ0J8DfjrN-31" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="BhRJRYYAKcvQ0J8DfjrN-25" target="BhRJRYYAKcvQ0J8DfjrN-38" edge="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="220" y="1080" as="targetPoint" />
-          </mxGeometry>
+        <mxCell id="E7rHuDmB5QC5V3yIihRZ-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="BhRJRYYAKcvQ0J8DfjrN-25" target="BhRJRYYAKcvQ0J8DfjrN-38">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="BhRJRYYAKcvQ0J8DfjrN-25" value="Retorne un array con objetos (propiedades: href/text/file)" style="whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-          <mxGeometry x="140" y="960" width="160" height="40" as="geometry" />
+          <mxGeometry x="250" y="1040" width="140" height="40" as="geometry" />
         </mxCell>
         <mxCell id="BhRJRYYAKcvQ0J8DfjrN-43" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;endArrow=classic;endFill=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="BhRJRYYAKcvQ0J8DfjrN-32" target="BhRJRYYAKcvQ0J8DfjrN-38" edge="1">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="400" y="1060" />
+              <mxPoint x="400" y="1140" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -100,15 +98,15 @@
             <mxPoint x="330" y="180" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="BhRJRYYAKcvQ0J8DfjrN-37" value="Yes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;jettySize=auto;orthogonalLoop=1;fontSize=11;endArrow=classic;endFill=1;endSize=8;strokeWidth=1;shadow=0;labelBackgroundColor=none;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="BhRJRYYAKcvQ0J8DfjrN-46" target="BhRJRYYAKcvQ0J8DfjrN-25" edge="1">
+        <mxCell id="BhRJRYYAKcvQ0J8DfjrN-37" value="Yes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;jettySize=auto;orthogonalLoop=1;fontSize=11;endArrow=classic;endFill=1;endSize=8;strokeWidth=1;shadow=0;labelBackgroundColor=none;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="BhRJRYYAKcvQ0J8DfjrN-46" target="E7rHuDmB5QC5V3yIihRZ-3" edge="1">
           <mxGeometry x="-0.1111" y="20" relative="1" as="geometry">
             <mxPoint as="offset" />
             <mxPoint x="220" y="950" as="sourcePoint" />
-            <mxPoint x="220" y="1180" as="targetPoint" />
+            <mxPoint x="220" y="960" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="BhRJRYYAKcvQ0J8DfjrN-38" value="Fin" style="rounded=1;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-          <mxGeometry x="190" y="1040" width="60" height="40" as="geometry" />
+          <mxGeometry x="190" y="1120" width="60" height="40" as="geometry" />
         </mxCell>
         <mxCell id="BhRJRYYAKcvQ0J8DfjrN-41" value="No" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;jettySize=auto;orthogonalLoop=1;fontSize=11;endArrow=classic;endFill=1;endSize=8;strokeWidth=1;shadow=0;labelBackgroundColor=none;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="BhRJRYYAKcvQ0J8DfjrN-46" target="BhRJRYYAKcvQ0J8DfjrN-32" edge="1">
           <mxGeometry y="10" relative="1" as="geometry">
@@ -121,7 +119,7 @@
           <mxGeometry x="170" y="840" width="100" height="80" as="geometry" />
         </mxCell>
         <mxCell id="BhRJRYYAKcvQ0J8DfjrN-47" value="esos links que tiene el array, entiendo que tener una validación si está rotos o siguen vigentes" style="whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-          <mxGeometry x="860" y="1015" width="120" height="90" as="geometry" />
+          <mxGeometry x="1394" y="1005" width="120" height="90" as="geometry" />
         </mxCell>
         <mxCell id="BhRJRYYAKcvQ0J8DfjrN-48" value="No" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;jettySize=auto;orthogonalLoop=1;fontSize=11;endArrow=classic;endFill=1;endSize=8;strokeWidth=1;shadow=0;labelBackgroundColor=none;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="BhRJRYYAKcvQ0J8DfjrN-17" target="BhRJRYYAKcvQ0J8DfjrN-74" edge="1">
           <mxGeometry y="10" relative="1" as="geometry">
@@ -140,7 +138,7 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="BhRJRYYAKcvQ0J8DfjrN-52" value="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-          <mxGeometry x="120" y="1040" width="40" height="40" as="geometry" />
+          <mxGeometry x="120" y="1120" width="40" height="40" as="geometry" />
         </mxCell>
         <mxCell id="BhRJRYYAKcvQ0J8DfjrN-61" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=classic;endFill=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="BhRJRYYAKcvQ0J8DfjrN-54" target="BhRJRYYAKcvQ0J8DfjrN-17" edge="1">
           <mxGeometry relative="1" as="geometry" />
@@ -200,10 +198,33 @@
           <mxGeometry x="630" y="460" width="40" height="40" as="geometry" />
         </mxCell>
         <mxCell id="BhRJRYYAKcvQ0J8DfjrN-77" value="&lt;span style=&quot;color: rgb(201 , 209 , 217) ; font-family: , &amp;#34;blinkmacsystemfont&amp;#34; , &amp;#34;segoe ui&amp;#34; , &amp;#34;helvetica&amp;#34; , &amp;#34;arial&amp;#34; , sans-serif , &amp;#34;apple color emoji&amp;#34; , &amp;#34;segoe ui emoji&amp;#34; ; font-size: 16px ; background-color: rgb(13 , 17 , 23)&quot;&gt;El comportamiento por defecto no debe validar si las URLs responden ok o no, solo debe identificar el archivo markdown (a partir de la ruta que recibe como argumento), analizar el archivo Markdown e imprimir los links que vaya encontrando, junto con la ruta del archivo donde aparece y el texto que hay dentro del link (truncado a 50 caracteres).&lt;/span&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-          <mxGeometry x="880" y="530" width="240" height="250" as="geometry" />
+          <mxGeometry x="1414" y="520" width="240" height="250" as="geometry" />
         </mxCell>
         <mxCell id="BhRJRYYAKcvQ0J8DfjrN-78" value="&lt;span style=&quot;color: rgb(201 , 209 , 217) ; font-family: , &amp;#34;blinkmacsystemfont&amp;#34; , &amp;#34;segoe ui&amp;#34; , &amp;#34;helvetica&amp;#34; , &amp;#34;arial&amp;#34; , sans-serif , &amp;#34;apple color emoji&amp;#34; , &amp;#34;segoe ui emoji&amp;#34; ; font-size: 16px ; background-color: rgb(13 , 17 , 23)&quot;&gt;Si pasamos la opción&amp;nbsp;&lt;/span&gt;&lt;code style=&quot;box-sizing: border-box ; font-family: , &amp;#34;consolas&amp;#34; , &amp;#34;liberation mono&amp;#34; , &amp;#34;menlo&amp;#34; , monospace ; font-size: 13.6px ; padding: 0.2em 0.4em ; margin: 0px ; border-radius: 6px ; color: rgb(201 , 209 , 217)&quot;&gt;--validate&lt;/code&gt;&lt;span style=&quot;color: rgb(201 , 209 , 217) ; font-family: , &amp;#34;blinkmacsystemfont&amp;#34; , &amp;#34;segoe ui&amp;#34; , &amp;#34;helvetica&amp;#34; , &amp;#34;arial&amp;#34; , sans-serif , &amp;#34;apple color emoji&amp;#34; , &amp;#34;segoe ui emoji&amp;#34; ; font-size: 16px ; background-color: rgb(13 , 17 , 23)&quot;&gt;, el módulo debe hacer una petición HTTP para averiguar si el link funciona o no. Si el link resulta en una redirección a una URL que responde ok, entonces consideraremos el link como ok.&lt;/span&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-          <mxGeometry x="840" y="800" width="200" height="150" as="geometry" />
+          <mxGeometry x="1374" y="790" width="200" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="E7rHuDmB5QC5V3yIihRZ-2" value="Yes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;jettySize=auto;orthogonalLoop=1;fontSize=11;endArrow=classic;endFill=1;endSize=8;strokeWidth=1;shadow=0;labelBackgroundColor=none;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E7rHuDmB5QC5V3yIihRZ-3" target="E7rHuDmB5QC5V3yIihRZ-4">
+          <mxGeometry x="0.6" y="20" relative="1" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="284" y="968" as="sourcePoint" />
+            <mxPoint x="320" y="1030" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="E7rHuDmB5QC5V3yIihRZ-3" value="¿Deseas validar?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="180" y="960" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="E7rHuDmB5QC5V3yIihRZ-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E7rHuDmB5QC5V3yIihRZ-4" target="BhRJRYYAKcvQ0J8DfjrN-38">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E7rHuDmB5QC5V3yIihRZ-4" value="Retorne un array con objetos (propiedades: href/text/file/status/ok)" style="whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="50" y="1040" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="E7rHuDmB5QC5V3yIihRZ-5" value="No" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;jettySize=auto;orthogonalLoop=1;fontSize=11;endArrow=classic;endFill=1;endSize=8;strokeWidth=1;shadow=0;labelBackgroundColor=none;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="E7rHuDmB5QC5V3yIihRZ-3" target="BhRJRYYAKcvQ0J8DfjrN-25">
+          <mxGeometry x="0.6" y="-20" relative="1" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="280" y="890" as="sourcePoint" />
+            <mxPoint x="345" y="890" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>
