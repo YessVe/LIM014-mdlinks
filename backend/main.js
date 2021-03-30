@@ -1,3 +1,8 @@
+/* module.exports = () => {
+  // ...
+};
+ */
+
 /*const marked = require('marked');
 const fetch = require('node-fetch');
 const chalk = require('chalk');  
@@ -8,6 +13,7 @@ fs.readdir() // o read the contents of a directory. This piece of code reads the
 
 const pathNode = require('path');
 const fs = require('fs');
+
 path = process.argv[2]; //the command line arguments are always stored in an array. The second element is the javascript (JS) file we refer to that often comes after the node command.
 option = process.argv[3];
 option2 = process.argv[4];
