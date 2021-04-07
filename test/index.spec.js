@@ -2,14 +2,16 @@ const {esAbsoluta,rutaExiste} = require('../backend/index.js');
 
 //VALIDAR SI ES UNA RUTA ABSOLUTA
 describe('esAbsoluta', () => {
+  const a = 'D:\\GitHub\\LIM014-mdlinks\\practica\\prueba_directorio\\CARP CON LINKS.md';
+  const b = 'practica\prueba_directorio\CARP CON LINKS.md';
   it('should be a function', () => {
     expect(typeof esAbsoluta).toBe('function');
   });
   it('should return true if the path is absolute', () => {
-    expect(esAbsoluta('./pruebalinks.md')).toBe(true);
+    expect(esAbsoluta(a)).toEqual(a);
   });
   it('should return false if the path is not absolute', () => {
-    expect(esAbsoluta('./pruebalinks2.md')).toBe(false);
+    expect(esAbsoluta(b)).toEqual(a);
   });
 });
 
