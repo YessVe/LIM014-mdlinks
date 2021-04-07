@@ -42,4 +42,4 @@ console.log(x[1].textContent);
 
 // una vez encontrado guardarle en un array y de ahi ya verificas si el link es valido o no
 
-//Gracias
+//Gracias =)

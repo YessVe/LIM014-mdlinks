@@ -44,7 +44,6 @@ fs.readFile(path, 'utf-8', (err, data) => {
 ////////////////////////////////////////////////////
 //ES PARA DARLE COLOR A MIS RESULTADOS
 const chalk = require('chalk');
-
 const emoji = require('node-emoji')
 
 console.log(
