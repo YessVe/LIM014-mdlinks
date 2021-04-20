@@ -33,54 +33,43 @@ const getFiles = (ruta) => {
         }
     });
   } else {
-
     if (tenerMd(ruta)) {
-      files.push(ruta);
+      files.push(rutaExiste(ruta));
     }
-
   }
-  
-  /* console.log(files + "padre nuestro"); */
   return files.flat();
 };
-console.log(getFiles(pathNode));
+/* console.log(getFiles(pathNode)); */
 /* console.log(fs.readFileSync(getFiles(pathNode), 'utf8')); */
 
 //FUNCIÓN QUE DA LECTURA A UN ARCHIVO .MD
-// const readFile = (ruta) => {
-//     const a = fs.readFileSync(ruta, 'utf8');
-//     const tokens = marked.lexer(a);
-//     const html = marked.parser(tokens);
-//     const dom = new JSDOM(html);
-//     /* const ref = dom.window.document.querySelectorAll("a"); */
-//     const todosLosLinks = [];
+const readFile = (ruta) => {
+  console.log(typeof(ruta) + "línea 48");
+  ruta.forEach((elemento) => {
     
-//     dom("a").map(
-//       (el, i) =>
-//         (todosLosLinks[el] = {
-//           href: readHtml(i).attr("href"),
-//           text: readHtml(i).text(),
-//           file: ruta,
-//         })
-//     );
-    
-//     return todosLosLinks;
+    const leerMd = fs.readFileSync(elemento, 'utf8');
+    console.log(leerMd);
+  })
+};
+console.log(readFile(getFiles(pathNode)));
 
-//   // for (let i = 0; i < ruta.length; i++) {
-//   //   console.log(ruta[i]);
-//   //   fs.readFileSync(ruta[i], 'utf8' , (err, data) => { 
-//   //     if (err) {
-//   //         console.error(err)
-//   //         return 
-//   //       }
-//   //       console.log(data);
-//   //       return data   
-//   //   });
-//   //   /* return readFile(ruta[i]); */
-//   // }
-// };
 
-/* console.log(readFile(getFiles(pathNode))); */
+// const a = fs.readFileSync(ruta, 'utf8');
+// const tokens = marked.lexer(a);
+// const html = marked.parser(tokens);
+// const dom = new JSDOM(html);
+// /* const ref = dom.window.document.querySelectorAll("a"); */
+// const todosLosLinks = [];
+
+// dom("a").map(
+//   (el, i) =>
+//     (todosLosLinks[el] = {
+//       href: readHtml(i).attr("href"),
+//       text: readHtml(i).text(),
+//       file: ruta,
+//     })
+// );
+//return todosLosLinks;
 
 
 
