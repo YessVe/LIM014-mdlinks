@@ -10,6 +10,8 @@ const fileCheck = fs.access(); // to check if the folder exists and Node.js can 
 fs.readdir() // o read the contents of a directory. This piece of code reads the content of a folder, both files and subfolders, and returns their relative path
 */
 
+/*const rutaNormal = (data) => path.normalize(data);*/
+
 const pathNode = require('path');
 const fs = require('fs');
 const marked = require('marked');
@@ -32,7 +34,7 @@ console.log(fileExists); */
 let ruta = 'D:\\GitHub\\LIM014-mdlinks\\practica\\ARCH SIN LINKS.md'
 
 //FX QUE VALIDA LA RUTA Y VE SI EXISTE O NO
-function rutaExist (ruta) {  
+/* function rutaExist (ruta) {  
 
     if (pathNode.isAbsolute(ruta) === true) {
         if (fs.existsSync(ruta) === true) {
@@ -50,7 +52,7 @@ function rutaExist (ruta) {
             return console.log('ruta NO ABSOLUTA y NO EXISTE');
         }
     }
-}
+} */
 
 rutaExist(ruta);
 
@@ -133,28 +135,8 @@ try {
   }
 
 
-//FX SI LA RUTA ES ABSOLUTA
-/* const esAbsoluta1 = (data) => {
-        if (pathNode.isAbsolute(data) === true) {
-            console.log('soy Absoluta');
-            return data
-        } else {
-            console.log('soy relativa y me convierto');
-            return pathNode.resolve(__dirname,data)
-        }
-    }; */
-/* esAbsoluta(path1); */ 
 
-//FX SI LA RUTA EXISTE
-/* const rutaExiste1 = (data) => {
-    let path1 = pathNode.resolve(__dirname,data);
-    if (fs.existsSync(path1) === true) {
-        console.log('existe');
-        return path1
-    } else {
-        return console.log('RUTA NO EXISTE');
-    }
-} */
+
 
 
 //FX SI LA RUTA ES DE UN ARCHIVO O DIRECTORIO
@@ -181,8 +163,7 @@ try {
 
 
 
-  fs.readFile(path, 'utf-8', (err, data) => {
-
+fs.readFile(path, 'utf-8', (err, data) => {
     if (err) {
         reject('ERROR - No se puede leer el archivo', err)
     }
@@ -196,14 +177,31 @@ try {
                 Ruta: path,
             })
         }
-        marked(data, { renderer: renderer })
-        links;
-        let resultLinks = filterLinks(links);
+    }
+}
 
 
 
+ /* let abs = getAbsolute(ruta);
 
-        function leerArchivo (data) {
+        if (rutaExiste(abs)) {
+          if (pathExtension(abs) === '.md') {
+            console.log('soy convertida, EXISTO y leer archivo');
+            let data = readFile(abs);
+            convertirHtml(data,abs);
+          } else {
+              console.log('Archivo con ruta relativa que no es .md');
+          }
+        } else {
+            console.log('ruta convertida NO EXISTE');
+        } */
+
+//para manejar DOM x si solo no maneja node
+//https://stackoverflow.com/questions/32126003/node-js-document-is-not-defined
+//https://stackoverflow.com/questions/7977945/html-parser-on-node-js
+//https://github.com/jsdom/jsdom
+
+function leerArchivo (data) {
             const filemd=`
             [GitHub](http://gist.github.com/rxjjaviers/7360908)
             [Link](https://gist.github.com/rddxjjaviers/7360908)
@@ -228,9 +226,115 @@ try {
             //1er elemento encontrado poner en console.log para q veas
             console.log(x[0].href);
             console.log(x[0].textContent);
-        
-            //2do elemento encontrado poner en console.log para q veas
-        
+             
             console.log(x[1].href);
             console.log(x[1].textContent);
-        }
+}
+
+fs.readFile(ruta, 'utf8' , (err, data) => {
+    if (err) {
+             console.error(err)
+                  return
+    }
+     console.log(data)
+     leerArchivo(data,ruta);
+});
+
+
+/* fetch('https://www.google.com/')
+    .then(res => {
+      let estado = res.status;
+      if (estado == 200) {
+        console.log('link válido');
+      }
+    })
+    .catch (err => console.error('link NO VÁLIDO')); */
+
+    let array = ref.map((ref)=>{
+        return {
+          href: ref.href,
+          text: ref.textContent,
+          file: ruta,
+        };
+      })
+
+    let array = [];
+      ref.forEach((ref)=>{
+        array.push ({
+          href: ref.href,
+          text: ref.textContent,
+          file: ruta,
+        });
+      })
+
+      for (let i = 0; i < ref.length; i++) {
+        ref[i]
+        let datos = {
+          href: ref[i].href,
+          text: ref[i].textContent,
+          file: ruta,
+        };
+      array.push(datos);
+      }
+
+
+      /* function validateLink(data) {
+  for (let i = 0; i < data.length; i++) {
+    fetch(data[i].href)
+      .then(res => {
+        data[i].status=res.status;
+        data[i].mensaje = res.status===200 ? 'OK' : 'FAIL';
+        console.log(data);
+      })
+      .catch (err => {
+          console.log(data[i].href);
+      });  
+  }
+} */
+
+/* const validateLinks = (data, ruta) => data.map((obj) =>
+
+  fetch(obj.href)
+    .then((res) => {
+      return {
+        href: obj.href,
+        text: obj.textContent,
+        file: ruta,
+        status: res.status,
+        message: res.status===200 ? 'OK' : 'FAIL';
+      }
+    })
+    .catch(()=> ({
+      status: 500,
+      statusText: "FAIL",
+    }));
+
+
+); */
+
+
+// function validateRuta (ruta, files) {  
+//     if (esAbsoluta(ruta)) {
+//         if (rutaExiste(ruta)) {
+
+
+//             getFiles(ruta)
+          
+
+
+//           if (pathExtension(ruta) === '.md') {
+//             let data = readFile(ruta);
+//             console.log(data);
+//             convertirHtml(data,ruta);
+//           } else {
+//               console.log('Archivo con ruta absoluta que no es .md');
+//           }
+//         } else {
+//             console.log('ruta ABSOLUTA y NO EXISTE');
+//         }
+//     } else {
+//       console.log('me voy a convertir');  
+//       validateRuta(getAbsolute(ruta));               
+//     }
+// }
+// validateRuta(pathNode, files);
