@@ -42,62 +42,42 @@ const getFiles = (ruta) => {
 /* console.log(getFiles(pathNode)); */
 /* console.log(fs.readFileSync(getFiles(pathNode), 'utf8')); */
 
+function convertirHtml (data,ruta) {
+    const filemd=data;
+    const tokens = marked.lexer(filemd); //The Lexer builds an array of tokens, which will be passed to the Parser.
+    const html = marked.parser(tokens); //The Parser processes each token in the token array. takes tokens as input and calls the renderer functions.
+    const dom = new JSDOM(html); 
+    let ref=dom.window.document.querySelectorAll("a"); //busco en el dom todos q tengan referencia <a href="wwww....">
+    let longitud = ref.length;
+    console.log(data,ruta,"***");
+    if (longitud != 0) {
+      let array = [];
+      ref.forEach((ref)=>{
+        array.push ({
+          href: ref.href,
+          text: ref.textContent,
+          file: ruta,
+        });
+      })
+
+      /* validateLink(array); */
+      return array
+      
+    } else {
+      console.log('Archivo .md no tiene links');
+    } 
+}
+
 //FUNCIÓN QUE DA LECTURA A UN ARCHIVO .MD
 const readFile = (ruta) => {
   console.log(typeof(ruta) + "línea 48");
   ruta.forEach((elemento) => {
-    
     const leerMd = fs.readFileSync(elemento, 'utf8');
-    console.log(leerMd);
+    console.log(convertirHtml(leerMd,elemento));
   })
 };
 console.log(readFile(getFiles(pathNode)));
 
-
-// const a = fs.readFileSync(ruta, 'utf8');
-// const tokens = marked.lexer(a);
-// const html = marked.parser(tokens);
-// const dom = new JSDOM(html);
-// /* const ref = dom.window.document.querySelectorAll("a"); */
-// const todosLosLinks = [];
-
-// dom("a").map(
-//   (el, i) =>
-//     (todosLosLinks[el] = {
-//       href: readHtml(i).attr("href"),
-//       text: readHtml(i).text(),
-//       file: ruta,
-//     })
-// );
-//return todosLosLinks;
-
-
-
-// function convertirHtml (data,ruta) {
-//     const filemd=data;
-//     const tokens = marked.lexer(filemd); //The Lexer builds an array of tokens, which will be passed to the Parser.
-//     const html = marked.parser(tokens); //The Parser processes each token in the token array. takes tokens as input and calls the renderer functions.
-//     const dom = new JSDOM(html); 
-//     let ref=dom.window.document.querySelectorAll("a"); //busco en el dom todos q tengan referencia <a href="wwww....">
-//     let longitud = ref.length;
-    
-//     if (longitud != 0) {
-//       let array = [];
-//       ref.forEach((ref)=>{
-//         array.push ({
-//           href: ref.href,
-//           text: ref.textContent,
-//           file: ruta,
-//         });
-//       })
-
-//       validateLink(array);
-//       return array
-      
-//     } else {
-//       console.log('Archivo .md no tiene links');
-//     } 
-// }
 
 // //FUNCIÓN QUE VALIDA SI LOS LINKS ESTÁN 'OK' O 'FAIL'
 // const validateLinks = (link) => {
