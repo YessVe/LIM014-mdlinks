@@ -1,43 +1,133 @@
-const pathNode = require('path');
+const paths = require('path');
 const fs = require('fs');
+const marked = require('marked');
+const jsdom = require("jsdom");
+const JSDOM = jsdom.JSDOM;
+const fetch = require('node-fetch');
+const fsPromises = require('fs').promises;
 
-path = process.argv[2]; 
-option = process.argv[3];
-option2 = process.argv[4];
-console.log(option);
-console.log(option2);
+// FUNCIÓN QUE VALIDA SI LA RUTA EXISTE Y LA CONVIERTE EN ABSOLUTA CON 1 SOLO BACK SLASH
+const rutaExiste = (data) => 
+  fs.existsSync(data) ? paths.normalize(paths.resolve(data)) : "The path doesn't exist";
+//FUNCIÓN QUE FILTRA LOS ARCHIVOS .MD
+const tenerMd = (data) => paths.extname(data) === ".md";
+//FUNCIÓN QUE VERIFICA SI ES UNA CARPETA O DIRECTORIO
+const isDirectory = (data) => fs.lstatSync(data).isDirectory(); //devuelve true or false  
 
-//FUNCIÓN PARA VALIDAR SI LA RUTA ES ABSOLUTA
-//FUNCIÓN PARA LAS OPCIONES 1) --validate, 2) --stats y 3) --stats --validate
-if (path.indexOf("\\") == -1) { //si no lo encuentra, es el nombre del archivo  
-     path1 = pathNode.resolve(path); //get the absolute path calculation of a relative path
-     fileExists = fs.existsSync(path1);
-    if (fileExists === true && path1.slice(-3) === ".md") {   
-        console.log('analizar archivo');
-        console.log('es un archivo .MD');
-
-        if (option === "--validate") {
-            console.log("CLI validate");
-        } else if (option === "--stats" && option2 === undefined) {
-            console.log("CLI stats");
-        } else if (option === "--stats" && option2 === "--validate" ) {
-            console.log("CLI stats y validate");
-        } 
-
-    } else { 
-        console.log('no existe archivo o NO es un archivo .MD');
+//FUNCIÓN RECURSIVA CUANDO EL USUARIO PASA COMO RUTA UN DIRECTORIO O CARPETA
+const getFiles = (ruta) => {
+  let files = [];
+  if (isDirectory(ruta)) {
+    fs.readdirSync(ruta).forEach(function(file){     
+      let subpath = ruta + '/' + file;
+        if(isDirectory(subpath)){
+            return files.push(getFiles(rutaExiste(subpath)));
+        } else if (tenerMd(subpath)) {
+            return files.push(rutaExiste(subpath));
+        }
+    });
+  } else {
+    if (tenerMd(ruta)) {
+      files.push(rutaExiste(ruta));
     }
-    console.log('es ruta relativa');
-} else {
-    fileExists = fs.existsSync(path);
-    if (fileExists === true) {   
-        console.log('analizar archivo 2');    
-    } else { 
-        console.log('no existe archivo 2');
-    }
-    console.log('es una ruta absoluta');
+  }
+  return files.flat();
+};
+
+const leeUnArchivo = (path) =>{
+  const leerMd = fs.readFileSync(path, 'utf8');
+  const tokens = marked.lexer(leerMd); //The Lexer builds an array of tokens, which will be passed to the Parser.
+  const html = marked.parser(tokens); //The Parser processes each token in the token array. takes tokens as input and calls the renderer functions.
+  const dom = new JSDOM(html); 
+  let ref=dom.window.document.querySelectorAll("a"); //busco en el dom todos q tengan referencia <a href="wwww....">
+  let longitud = ref.length;
+  let arrayLinks = [];
+  if (longitud != 0) { 
+    let validateLink =  /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
+    ref.forEach((ref)=>{
+      if (validateLink.test(ref.href)) {
+      arrayLinks.push ({
+        href: ref.href,
+        text: ref.textContent,
+        file: path,
+      });
+      }
+    })
+  } else {
+    console.log('Archivo .md no tiene links');
+  } 
+  return arrayLinks
 }
 
+//FUNCIÓN QUE DA LECTURA A UN ARCHIVO .MD, LA CONVIERTE EN HTML Y OBTIENES LOS LINKS - RESULTADO ES UN ARREGLO
+const readFile = (ruta) => {
+  let arrayLinks = ruta.map((elemento)=>{
+    return leeUnArchivo(elemento)
+  })
+  return arrayLinks.flat();
+};
+
+//FUNCIÓN QUE VALIDA SI LOS LINKS ESTÁN 'OK' O 'FAIL'
+const validateLinks = (data) => data.map((obj) => {
+  return fetch(obj.href)
+          .then((res) => {
+            return {
+              href: obj.href,
+              text: obj.text,
+              file: obj.file,
+              status: res.status,
+              message: res.status===200 ? 'OK' : 'FAIL'
+            }
+          })
+          .catch((error)=> {
+            return {
+            href: obj.href,
+            text: obj.text,
+            file: obj.file,
+            status: 500,
+            message: "FAIL",
+            }});
+});
+
+//FUNCIÓN MDLINKS QUE RETORNA UNA PROMESA
+function mdLinks (path,option) {
+  return new Promise((resolve, reject) => {
+    if (rutaExiste(path)) {
+      if (isDirectory(path)) {
+        let files = getFiles(path);
+        let arrayLinks = readFile(files);
+        if (option.validate === true) {
+          let arrayParaValidar = Promise.all(validateLinks(arrayLinks));
+          resolve(arrayParaValidar)
+        } else {
+          resolve(arrayLinks)
+        }
+      } else {
+        let files = getFiles(path);
+        let arrayLinks = readFile(files);
+        if (option.validate === true) {
+          let arrayParaValidar = Promise.all(validateLinks(arrayLinks));
+          resolve(arrayParaValidar)
+        } else {
+          resolve(arrayLinks)
+        }
+      }
+    } 
+  });
+}
+
+// "D:\\GitHub\\LIM014-mdlinks\\practica"
+// "D:\\GitHub\\LIM014-mdlinks\\backend\\pruebalinks.md"
+mdLinks("D:\\GitHub\\LIM014-mdlinks\\backend\\pruebalinks.md", { validate: false }).then((response) => {
+  console.log(response);
+});
 
 
-
+module.exports = {
+  rutaExiste,
+  tenerMd,
+  isDirectory,
+  getFiles,
+  readFile,
+  validateLinks,
+};
