@@ -15,6 +15,7 @@ function mdLinks(path, option) {
 }
 console.log(mdLinks(pathNode));
 
+
 if (path.indexOf("\\") == -1) { //si no lo encuentra, es el nombre del archivo  
     path1 = pathNode.resolve(path); //get the absolute path calculation of a relative path
     fileExists = fs.existsSync(path1);
