@@ -1,20 +1,16 @@
-const path = require('path');
+const paths = require('path');
 const fs = require('fs');
 const marked = require('marked');
 const jsdom = require("jsdom");
 const JSDOM = jsdom.JSDOM;
 const fetch = require('node-fetch');
-
 const fsPromises = require('fs').promises;
-
-const pathNode = process.argv[2];
 
 // FUNCIÓN QUE VALIDA SI LA RUTA EXISTE Y LA CONVIERTE EN ABSOLUTA CON 1 SOLO BACK SLASH
 const rutaExiste = (data) => 
-  fs.existsSync(data) ? path.normalize(path.resolve(data)) : "The path doesn't exist";
-/* const esAbsoluta = (data) => path.isAbsolute(data); */
+  fs.existsSync(data) ? paths.normalize(paths.resolve(data)) : "The path doesn't exist";
 //FUNCIÓN QUE FILTRA LOS ARCHIVOS .MD
-const tenerMd = (data) => path.extname(data) === ".md";
+const tenerMd = (data) => paths.extname(data) === ".md";
 //FUNCIÓN QUE VERIFICA SI ES UNA CARPETA O DIRECTORIO
 const isDirectory = (data) => fs.lstatSync(data).isDirectory(); //devuelve true or false  
 
@@ -25,7 +21,6 @@ const getFiles = (ruta) => {
     fs.readdirSync(ruta).forEach(function(file){     
       let subpath = ruta + '/' + file;
         if(isDirectory(subpath)){
-          /* console.log(files.push(getFiles(rutaExiste(subpath)))); */
             return files.push(getFiles(rutaExiste(subpath)));
         } else if (tenerMd(subpath)) {
             return files.push(rutaExiste(subpath));
@@ -39,83 +34,100 @@ const getFiles = (ruta) => {
   return files.flat();
 };
 
-/* function convertirHtml (data,ruta) {
-    const filemd=data;
-    const tokens = marked.lexer(filemd); //The Lexer builds an array of tokens, which will be passed to the Parser.
-    const html = marked.parser(tokens); //The Parser processes each token in the token array. takes tokens as input and calls the renderer functions.
-    const dom = new JSDOM(html); 
-    let ref=dom.window.document.querySelectorAll("a"); //busco en el dom todos q tengan referencia <a href="wwww....">
-    let longitud = ref.length;
-
-    if (longitud != 0) {
-      let array = [];
-      ref.forEach((ref)=>{
-        array.push ({
-          href: ref.href,
-          text: ref.textContent,
-          file: ruta,
-        });
-      })
-      console.log(array);
-      return array
-    } else {
-      console.log('Archivo .md no tiene links');
-    } 
-} */
-
-//FUNCIÓN QUE DA LECTURA A UN ARCHIVO .MD - RESULTADO ES UN ARREGLO
-const readFile = (ruta) => {
-  let array = [];
-  ruta.forEach((elemento) => {
-    const leerMd = fs.readFileSync(elemento, 'utf8');
-    const tokens = marked.lexer(leerMd); //The Lexer builds an array of tokens, which will be passed to the Parser.
-    const html = marked.parser(tokens); //The Parser processes each token in the token array. takes tokens as input and calls the renderer functions.
-    const dom = new JSDOM(html); 
-    let ref=dom.window.document.querySelectorAll("a"); //busco en el dom todos q tengan referencia <a href="wwww....">
-    let longitud = ref.length;
-    if (longitud != 0) { 
-      ref.forEach((ref)=>{
-        array.push ({
-          href: ref.href,
-          text: ref.textContent,
-          file: elemento,
-        });
-      })
-    } else {
-      console.log('Archivo .md no tiene links');
-    } 
-  })
-  return array
-};
-console.log(readFile(getFiles(pathNode)));
-
-
-//FUNCIÓN QUE VALIDA SI LOS LINKS ESTÁN 'OK' O 'FAIL'
-const validateLinks = (link) => {
-  return fetch(link, { validate: true })
-    .then((response) => {
-      if (response.status >= 200 && response.status < 400) {
-        return {
-          href: link,
-          statusText: response.statusText,
-          status: response.status,
-        };
-      } else {
-        return { statusText: "FAIL", status: response.status };
+const leeUnArchivo = (path) =>{
+  const leerMd = fs.readFileSync(path, 'utf8');
+  const tokens = marked.lexer(leerMd); //The Lexer builds an array of tokens, which will be passed to the Parser.
+  const html = marked.parser(tokens); //The Parser processes each token in the token array. takes tokens as input and calls the renderer functions.
+  const dom = new JSDOM(html); 
+  let ref=dom.window.document.querySelectorAll("a"); //busco en el dom todos q tengan referencia <a href="wwww....">
+  let longitud = ref.length;
+  let arrayLinks = [];
+  if (longitud != 0) { 
+    let validateLink =  /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
+    ref.forEach((ref)=>{
+      if (validateLink.test(ref.href)) {
+      arrayLinks.push ({
+        href: ref.href,
+        text: ref.textContent,
+        file: path,
+      });
       }
     })
-    .catch(() => ({
-      status: 500,
-      statusText: "FAIL",
-    }));
+  } else {
+    console.log('Archivo .md no tiene links');
+  } 
+  return arrayLinks
+}
+
+//FUNCIÓN QUE DA LECTURA A UN ARCHIVO .MD, LA CONVIERTE EN HTML Y OBTIENES LOS LINKS - RESULTADO ES UN ARREGLO
+const readFile = (ruta) => {
+  let arrayLinks = ruta.map((elemento)=>{
+    return leeUnArchivo(elemento)
+  })
+  return arrayLinks.flat();
 };
 
+//FUNCIÓN QUE VALIDA SI LOS LINKS ESTÁN 'OK' O 'FAIL'
+const validateLinks = (data) => data.map((obj) => {
+  return fetch(obj.href)
+          .then((res) => {
+            return {
+              href: obj.href,
+              text: obj.text,
+              file: obj.file,
+              status: res.status,
+              message: res.status===200 ? 'OK' : 'FAIL'
+            }
+          })
+          .catch((error)=> {
+            return {
+            href: obj.href,
+            text: obj.text,
+            file: obj.file,
+            status: 500,
+            message: "FAIL",
+            }});
+});
 
-// module.exports = {
-//   rutaExiste,
-//   esAbsoluta,
-//   tenerMd,
-//   isDirectory,
-//   /* getAbsolute,
-//   pathExtension, */
-// };
+//FUNCIÓN MDLINKS QUE RETORNA UNA PROMESA
+function mdLinks (path,option) {
+  return new Promise((resolve, reject) => {
+    if (rutaExiste(path)) {
+      if (isDirectory(path)) {
+        let files = getFiles(path);
+        let arrayLinks = readFile(files);
+        if (option.validate === true) {
+          let arrayParaValidar = Promise.all(validateLinks(arrayLinks));
+          resolve(arrayParaValidar)
+        } else {
+          resolve(arrayLinks)
+        }
+      } else {
+        let files = getFiles(path);
+        let arrayLinks = readFile(files);
+        if (option.validate === true) {
+          let arrayParaValidar = Promise.all(validateLinks(arrayLinks));
+          resolve(arrayParaValidar)
+        } else {
+          resolve(arrayLinks)
+        }
+      }
+    } 
+  });
+}
+
+// "D:\\GitHub\\LIM014-mdlinks\\practica"
+// "D:\\GitHub\\LIM014-mdlinks\\backend\\pruebalinks.md"
+mdLinks("D:\\GitHub\\LIM014-mdlinks\\backend\\pruebalinks.md", { validate: false }).then((response) => {
+  console.log(response);
+});
+
+
+module.exports = {
+  rutaExiste,
+  tenerMd,
+  isDirectory,
+  getFiles,
+  readFile,
+  validateLinks,
+};
