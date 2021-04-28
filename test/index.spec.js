@@ -1,45 +1,67 @@
-const {rutaExiste,esAbsoluta,getAbsolute,pathExtension,} = require('../backend/index.js');
+const {
+  rutaExiste,
+  tenerMd,
+  isDirectory,
+  getFiles,
+  readFile,
+  validateLinks,
+  mdLinks} = require('../backend/index.js');
 
-//VALIDAR SI ES UNA RUTA ABSOLUTA
-describe('Función que valida si la ruta es absoluta', () => {
+//FUNCIÓN QUE VALIDA SI UNA RUTA EXISTE Y LA DEVUELVE ABSOLUTA DE SER ASÍ
+  describe('Función que debe determinar si la ruta existe y de ser así, cambiarla a absoluta', () => {
+    it("Debe retornar la ruta existente y convertirla en absoluta", () => {
+      console.log(__dirname+'/../practica');
+      expect(rutaExiste(__dirname + '/../practica')).toEqual('D://GitHub//LIM014-mdlinks//practica');
+    });
+  
+    it("Debe retornar un mensaje si se pasa una ruta no existente", () => {
+      expect(rutaExiste('./pruebalinks2.md')).toEqual("The path doesn't exist");
+    });
+  });
+
+//FUNCIÓN QUE VALIDA/FILTRARÁ LOS ARCHIVOS .MD
+describe('Función que valida si los archivos son markdown o extensión .md', () => {
   it('debería ser una función', () => {
-    expect(typeof esAbsoluta).toBe('function');
+    expect(typeof tenerMd).toBe('function');
   });
-  it('debería retornar TRUE si la ruta es absoluta', () => {
-    expect(esAbsoluta("D:\\GitHub\\LIM014-mdlinks\\README.md")).toBe(true);
+  it('debería retornar TRUE si el archivo tiene extensión .md', () => {
+    expect(tenerMd('D:\\GitHub\\LIM014-mdlinks\\backend\\pruebalinks.md')).toBe(true);
   });
-  it('debería retornar FALSE si la ruta es relativa', () => {
-    expect(esAbsoluta("../README.md")).toBe(false);
+  it('debería retornar FALSE si el archivo NO tiene extensión .md', () => {
+    expect(tenerMd('D:\\GitHub\\LIM014-mdlinks\\backend\\cli.js')).toBe(false);
   });
-  /* it('debería retornar TypeError cuando invoco un tipo de argumento incorrecto', () => {
-    expect(() => esAbsoluta()).toThrow(TypeError);
-    expect(() => esAbsoluta(0)).toThrow(TypeError);
-    expect(() => esAbsoluta(null, [])).toThrow(TypeError);
-    expect(() => esAbsoluta(0, 0)).toThrow(TypeError);
-  }); */
 });
 
-//VALIDAR SI LA RUTA EXISTE
-describe('Función que valida si la ruta existe', () => {
+
+//FUNCIÓN QUE VERIFICA SI ES UNA CARPETA O DIRECTORIO
+describe('Función que valida si la ruta pertenece a una carpeta o directorio', () => {
   it('debería ser una función', () => {
-    expect(typeof rutaExiste).toBe('function');
+    expect(typeof isDirectory).toBe('function');
   });
-  it('debería retornar TRUE si la ruta existe', () => {
-    expect(rutaExiste('D:\\GitHub\\LIM014-mdlinks\\README.md')).toBe(true);
-  });
-  it('debería retornar FALSE si la ruta no existe', () => {
-    expect(rutaExiste('D:\\GitHub\\LIM014-mdlinks\\README2.md')).toBe(false);
-  });
-  it('debería retornar TRUE si la ruta existe', () => {
-    expect(rutaExiste('README.md')).toBe(true);
+  it('debería retornar TRUE si la ruta es un directorio', () => {
+    expect(isDirectory('D:\\GitHub\\LIM014-mdlinks\\practica')).toBe(true);
   });
   it('debería retornar FALSE si la ruta no existe', () => {
-    expect(rutaExiste('../README2.md')).toBe(false);
+    expect(isDirectory('D:\\GitHub\\LIM014-mdlinks\\backend\\pruebalinks.md')).toBe(false);
+  });
+}); 
+
+
+//FUNCIÓN RECURSIVA CUANDO EL USUARIO PASA COMO RUTA UN DIRECTORIO O CARPETA
+describe('Función que lee un directorio recursivamente', () => {
+  it('Debe leer el directorio y sus subcarpetas. También, filtra y devuelve solo los archivos .md', () => {
+    expect(getFiles(__dirname + "/practica")).toEqual([
+      'D:\\GitHub\\LIM014-mdlinks\\practica\\prueba_directorio\\con_LINKS.md',
+      'D:\\GitHub\\LIM014-mdlinks\\practica\\prueba_directorio\\sin_LINKS.md',
+      'D:\\GitHub\\LIM014-mdlinks\\practica\\prueba_directorio\\prueba_directorio2\\pruebalinks.md',
+      'D:\\GitHub\\LIM014-mdlinks\\practica\\prueba_directorio\\prueba_directorio2\\sin_LINKS.md',
+    ]);
   });
 });
+
 
 //VALIDAR QUE LA RUTA RELATIVA SE CONVIERTA EN ABSOLUTA
-describe('Función que convierte una ruta relativa en absoluta', () => {
+/* describe('Función que convierte una ruta relativa en absoluta', () => {
   const a = "D:\\GitHub\\LIM014-mdlinks\\README.md";
   const b = "README.md";
   it('debería ser una función', () => {
@@ -51,7 +73,7 @@ describe('Función que convierte una ruta relativa en absoluta', () => {
   it('no debería convertir una ruta absoluta, se debe quedar igual', () => {
     expect(getAbsolute(a)).toEqual(a);
   });
-});
+}); */
 
 
 /* describe('cipher', () => {

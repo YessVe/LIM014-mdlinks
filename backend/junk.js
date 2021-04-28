@@ -2,59 +2,10 @@
   // ...
 }; */
 
-/*
-const fetch = require('node-fetch');
-const chalk = require('chalk');  
-path2 = pathNode.normalize(path); // will try and calculate the actual path, when it contains relative specifiers like . or .., or double slashes 
-const fileCheck = fs.access(); // to check if the folder exists and Node.js can access it with its permissions.
-fs.readdir() // o read the contents of a directory. This piece of code reads the content of a folder, both files and subfolders, and returns their relative path
-*/
 
-/*const rutaNormal = (data) => path.normalize(data);*/
 
-const pathNode = require('path');
-const fs = require('fs');
-const marked = require('marked');
-/* path = process.argv[2]; //the command line arguments are always stored in an array. The second element is the javascript (JS) file we refer to that often comes after the node command.
-option = process.argv[3];
-option2 = process.argv[4];
-console.log(path); */
-/* console.log(option2); */
 
-/* path1 = pathNode.resolve(path); //get the absolute path calculation of a relative path
-console.log(path1);
-fileExists = fs.existsSync(path1);
-console.log(fileExists); */
-
-//FUNCIÓN PARA VALIDAR SI LA RUTA ES ABSOLUTA
 //FUNCIÓN PARA LAS OPCIONES 1) --validate, 2) --stats y 3) --stats --validate
-
-//FX VALIDAR SI LA RUTA ES ABSOLUTA Y EXISTE
-/* let ruta = '../practica' */
-let ruta = 'D:\\GitHub\\LIM014-mdlinks\\practica\\ARCH SIN LINKS.md'
-
-//FX QUE VALIDA LA RUTA Y VE SI EXISTE O NO
-/* function rutaExist (ruta) {  
-
-    if (pathNode.isAbsolute(ruta) === true) {
-        if (fs.existsSync(ruta) === true) {
-            console.log('ruta ABSOLUTA y SÍ EXISTE');
-            return ruta;
-        } else {
-            return console.log('ruta ABSOLUTA y NO EXISTE');
-        }
-    } else {
-        path1 = pathNode.resolve(__dirname,ruta);
-        if (fs.existsSync(path1) === true) {
-            console.log('ruta  NO ABSOLUTA y SÍ EXISTE');
-            return path1
-        } else {
-            return console.log('ruta NO ABSOLUTA y NO EXISTE');
-        }
-    }
-} */
-
-rutaExist(ruta);
 
 if (path.indexOf("\\") == -1) { //si no lo encuentra, es el nombre del archivo  
      path1 = pathNode.resolve(path); //get the absolute path calculation of a relative path
@@ -87,100 +38,6 @@ if (path.indexOf("\\") == -1) { //si no lo encuentra, es el nombre del archivo
 }
 
 
-
-//FX QUE VALIDA LA RUTA Y VE SI EXISTE O NO
-//en vez de return, debe darme una promesa de resolve
-function mdLinks (path,options) {  
-    if (pathNode.isAbsolute(ruta) === true) {
-        if (fs.existsSync(ruta) === true) {
-            console.log('ruta ABSOLUTA y SÍ EXISTE');
-            return ruta;
-        } else {
-            return console.log('ruta ABSOLUTA y NO EXISTE');
-        }
-    } else {
-        path1 = pathNode.resolve(__dirname,ruta);
-        if (fs.existsSync(path1) === true) {
-            console.log('ruta  NO ABSOLUTA y SÍ EXISTE');
-            return path1
-        } else {
-            return console.log('ruta NO ABSOLUTA y NO EXISTE');
-        }
-    }
-}
-
-console.log(rutaExist(ruta1));
-
-
-//FX SI LA RUTA EXISTE
-function rutaExiste(data) {
-    let path1 = pathNode.resolve(__dirname,data);
-    if (fs.existsSync(path1) === true) {
-        console.log('existe');
-        return path1
-    } else {
-        return console.log('RUTA NO EXISTE');
-    }
-}
-rutaExiste (ruta1);
-
-//creo que esto lo usan para expresiones regulares
-const readFile = (data) => fs.readFileSync(data);
-console.log(readFile(pathNode));
-
-try {
-    const data = fs.readFileSync(pathNode, 'utf8')
-    console.log(data)
-  } catch (err) {
-    console.error(err)
-  }
-
-
-
-
-
-
-/
-
-
-fs.readFile(path, 'utf-8', (err, data) => {
-    if (err) {
-        reject('ERROR - No se puede leer el archivo', err)
-    }
-    else {
-        let links = []
-        const renderer = new marked.Renderer()
-        renderer.link = (href, title, text) => {
-            links.push({
-                Link: href,
-                Titulo: text,
-                Ruta: path,
-            })
-        }
-    }
-}
-
-
-
- /* let abs = getAbsolute(ruta);
-
-        if (rutaExiste(abs)) {
-          if (pathExtension(abs) === '.md') {
-            console.log('soy convertida, EXISTO y leer archivo');
-            let data = readFile(abs);
-            convertirHtml(data,abs);
-          } else {
-              console.log('Archivo con ruta relativa que no es .md');
-          }
-        } else {
-            console.log('ruta convertida NO EXISTE');
-        } */
-
-//para manejar DOM x si solo no maneja node
-//https://stackoverflow.com/questions/32126003/node-js-document-is-not-defined
-//https://stackoverflow.com/questions/7977945/html-parser-on-node-js
-//https://github.com/jsdom/jsdom
-
 function leerArchivo (data) {
             const filemd=`
             [GitHub](http://gist.github.com/rxjjaviers/7360908)
@@ -210,15 +67,6 @@ function leerArchivo (data) {
             console.log(x[1].href);
             console.log(x[1].textContent);
 }
-
-fs.readFile(ruta, 'utf8' , (err, data) => {
-    if (err) {
-             console.error(err)
-                  return
-    }
-     console.log(data)
-     leerArchivo(data,ruta);
-});
 
 
 /* fetch('https://www.google.com/')
@@ -291,59 +139,6 @@ fs.readFile(ruta, 'utf8' , (err, data) => {
 
 
 ); */
-
-
-// function validateRuta (ruta, files) {  
-//     if (esAbsoluta(ruta)) {
-//         if (rutaExiste(ruta)) {
-
-
-//             getFiles(ruta)
-          
-
-
-//           if (pathExtension(ruta) === '.md') {
-//             let data = readFile(ruta);
-//             console.log(data);
-//             convertirHtml(data,ruta);
-//           } else {
-//               console.log('Archivo con ruta absoluta que no es .md');
-//           }
-//         } else {
-//             console.log('ruta ABSOLUTA y NO EXISTE');
-//         }
-//     } else {
-//       console.log('me voy a convertir');  
-//       validateRuta(getAbsolute(ruta));               
-//     }
-// }
-// validateRuta(pathNode, files);
-
-
-// const validateLinks = (link) => {
-//   return fetch(link, { validate: true })
-//     .then((response) => {
-//       if (response.status >= 200 && response.status < 400) {
-//         console.log('ver status x aqui');
-//         return {
-//           href: link,
-//           statusText: response.statusText,
-//           status: response.status,
-//         };
-//       } else {
-//         return { statusText: "FAIL", status: response.status };
-//       }
-//     })
-//     .then((data) => {
-//       console.log(array);
-
-//     })
-//     .catch((err) => {
-//       console.log('err');
-//       /* status: 500,
-//       statusText: "FAIL", */
-//     });
-// };
 
 
 /*   ruta.forEach((elemento) => {
