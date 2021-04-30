@@ -9,9 +9,6 @@ const fsPromises = require('fs').promises;
 // FUNCIÓN QUE VALIDA SI LA RUTA EXISTE Y LA CONVIERTE EN ABSOLUTA CON 1 SOLO BACK SLASH
 const rutaExiste = (data) =>
   fs.existsSync(data) ? paths.normalize(paths.resolve(data)) : "The path doesn't exist";
-/* 
-  console.log(rutaExiste(__dirname+'/pruebalinks.md'));
-  console.log(__dirname); */
 
 //FUNCIÓN QUE FILTRA LOS ARCHIVOS .MD
 const tenerMd = (data) => paths.extname(data) === ".md";
