@@ -10,12 +10,11 @@ const {
 //FUNCIÓN QUE VALIDA SI UNA RUTA EXISTE Y LA DEVUELVE ABSOLUTA DE SER ASÍ
   describe('Función que debe determinar si la ruta existe y de ser así, cambiarla a absoluta', () => {
     it("Debe retornar la ruta existente y convertirla en absoluta", () => {
-      console.log(__dirname+'/../practica');
-      expect(rutaExiste(__dirname + '/../practica')).toEqual('D://GitHub//LIM014-mdlinks//practica');
+      expect(rutaExiste(__dirname + '/practica')).toEqual("D:\\GitHub\\LIM014-mdlinks\\test\\practica");
     });
   
     it("Debe retornar un mensaje si se pasa una ruta no existente", () => {
-      expect(rutaExiste('./pruebalinks2.md')).toEqual("The path doesn't exist");
+      expect(rutaExiste(__dirname + '/practica2')).toEqual("The path doesn't exist");
     });
   });
 
@@ -32,29 +31,27 @@ describe('Función que valida si los archivos son markdown o extensión .md', ()
   });
 });
 
-
 //FUNCIÓN QUE VERIFICA SI ES UNA CARPETA O DIRECTORIO
 describe('Función que valida si la ruta pertenece a una carpeta o directorio', () => {
   it('debería ser una función', () => {
     expect(typeof isDirectory).toBe('function');
   });
   it('debería retornar TRUE si la ruta es un directorio', () => {
-    expect(isDirectory('D:\\GitHub\\LIM014-mdlinks\\practica')).toBe(true);
+    expect(isDirectory('D:\\GitHub\\LIM014-mdlinks\\test\\practica')).toBe(true);
   });
   it('debería retornar FALSE si la ruta no existe', () => {
     expect(isDirectory('D:\\GitHub\\LIM014-mdlinks\\backend\\pruebalinks.md')).toBe(false);
   });
 }); 
 
-
 //FUNCIÓN RECURSIVA CUANDO EL USUARIO PASA COMO RUTA UN DIRECTORIO O CARPETA
 describe('Función que lee un directorio recursivamente', () => {
   it('Debe leer el directorio y sus subcarpetas. También, filtra y devuelve solo los archivos .md', () => {
     expect(getFiles(__dirname + "/practica")).toEqual([
-      'D:\\GitHub\\LIM014-mdlinks\\practica\\prueba_directorio\\con_LINKS.md',
-      'D:\\GitHub\\LIM014-mdlinks\\practica\\prueba_directorio\\sin_LINKS.md',
-      'D:\\GitHub\\LIM014-mdlinks\\practica\\prueba_directorio\\prueba_directorio2\\pruebalinks.md',
-      'D:\\GitHub\\LIM014-mdlinks\\practica\\prueba_directorio\\prueba_directorio2\\sin_LINKS.md',
+      'D:\\GitHub\\LIM014-mdlinks\\test\\practica\\prueba_directorio\\con_LINKS.md',
+      'D:\\GitHub\\LIM014-mdlinks\\test\\practica\\prueba_directorio\\prueba_directorio2\\pruebalinks.md',
+      'D:\\GitHub\\LIM014-mdlinks\\test\\practica\\prueba_directorio\\prueba_directorio2\\sin_LINKS.md',
+      'D:\\GitHub\\LIM014-mdlinks\\test\\practica\\prueba_directorio\\sin_LINKS.md',
     ]);
   });
 });
