@@ -55,8 +55,8 @@ con el sistema archivos, con el entorno (_proceso_, _env_, _stdin/stdout/stderr_
 
 El plan de trabajo incluye dos diagramas de flujo. Ellos, muestran las actividades para la construcción del API y de la línea de comando (CLI). 
 
-* [Diagrama de flujo del API](MDLink%20-%20API.png)
-* [Diagrama del CLI](MDLink%20-%20CLI.png)
+* [Diagrama de flujo del API](work-flow/MDLink%20-%20API.png)
+* [Diagrama del CLI](work-flow/MDLink%20-%20CLI.png)
 
 
 ## 4. ¿Qué incluye la librería?
