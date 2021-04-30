@@ -58,9 +58,7 @@ const leeUnArchivo = (path) => {
         });
       }
     })
-  } else {
-    console.log('Archivo .md no tiene links');
-  }
+  } 
   return arrayLinks
 }
 
@@ -123,21 +121,11 @@ function mdLinks(path, option) {
           resolve(arrayLinks)
         }
       }
-    } 
+    } else {
+      reject(console.log(chalk.rgb(218, 41, 41)('The file, directory or path does not exist or there is no file with .md extension')))
+    }
   });
 }
-
-// "D:\\GitHub\\LIM014-mdlinks\\practica"
-// "D:\\GitHub\\LIM014-mdlinks\\backend\\pruebalinks.md"
-//"D:\\GitHub\\LIM014-mdlinks\\test\\practica2"
-/* mdLinks("D:\\GitHub\\LIM014-mdlinks\\backend\\pruebalinks.md", { validate: true })
-  .then((response) => {
-    console.log(response); //imprime el resolve de la 109
-  })
-  .catch((err)=>{
-    console.log('The file, directory or path does not exist or there is no file with .md extension');
-  }) */
-
 
 module.exports = {
   rutaExiste,
