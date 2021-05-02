@@ -119,12 +119,7 @@ manera a través de la **terminal**:
 
 Por ejemplo:
 
-```sh
-$ md-links ./some/example.md
-./some/example.md http://algo.com/2/3/ Link a algo
-./some/example.md https://otra-cosa.net/algun-doc.html algún doc
-./some/example.md http://google.com/ Google
-```
+![Image1](https://user-images.githubusercontent.com/77126999/116826420-7cd98000-ab59-11eb-95c0-70d1208ca22b.png)
 
 El comportamiento por defecto identifica el archivo markdown (a partir de la ruta que recibe como argumento), analiza el archivo Markdown e imprime los links que vaya encontrando, junto con la ruta del archivo donde aparece y el texto que hay dentro del link.
 
@@ -137,12 +132,7 @@ averiguar si el link funciona o no. Si el link resulta en una redirección a una
 
 Por ejemplo:
 
-```sh
-$ md-links ./some/example.md --validate
-./some/example.md http://algo.com/2/3/ ok 200 Link a algo
-./some/example.md https://otra-cosa.net/algun-doc.html fail 404 algún doc
-./some/example.md http://google.com/ ok 301 Google
-```
+![Image2](https://user-images.githubusercontent.com/77126999/116826466-c0cc8500-ab59-11eb-8b92-51b0df68bb0e.png)
 
 Vemos que el _output_ en este caso incluye la palabra `ok` o `fail` después de la URL, así como el status de la respuesta recibida a la petición HTTP a dicha URL.
 
@@ -150,20 +140,11 @@ Vemos que el _output_ en este caso incluye la palabra `ok` o `fail` después de 
 
 Si se pasa la opción `--stats` el output (salida) será un texto con estadísticas básicas sobre los links.
 
-```sh
-$ md-links ./some/example.md --stats
-Total: 3
-Unique: 3
-```
+![Image3](https://user-images.githubusercontent.com/77126999/116826515-eeb1c980-ab59-11eb-862d-139ff1b33509.png)
 
 También podemos combinar `--stats` y `--validate` para obtener estadísticas que necesiten de los resultados de la validación.
 
-```sh
-$ md-links ./some/example.md --stats --validate
-Total: 3
-Unique: 3
-Broken: 1
-```
+![Image4](https://user-images.githubusercontent.com/77126999/116826545-1739c380-ab5a-11eb-8e89-2ff9dcdb66ff.png)
 
 ## 5. Instalación
 
