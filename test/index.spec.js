@@ -9,37 +9,37 @@ const {
 
 //FUNCIÓN QUE VALIDA SI UNA RUTA EXISTE Y LA DEVUELVE ABSOLUTA DE SER ASÍ
   describe('Función que debe determinar si la ruta existe y de ser así, cambiarla a absoluta', () => {
-    it("Debe retornar la ruta existente y convertirla en absoluta", () => {
+    it('Debe retornar la ruta existente y convertirla en absoluta', () => {
       expect(rutaExiste(__dirname + '/practica')).toEqual("D:\\GitHub\\LIM014-mdlinks\\test\\practica");
     });
   
-    it("Debe retornar un mensaje si se pasa una ruta no existente", () => {
+    it('Debe retornar un mensaje si se pasa una ruta no existente', () => {
       expect(rutaExiste(__dirname + '/practica2')).toEqual("The path doesn't exist");
     });
   });
 
 //FUNCIÓN QUE VALIDA/FILTRARÁ LOS ARCHIVOS .MD
 describe('Función que valida si los archivos son markdown o extensión .md', () => {
-  it('debería ser una función', () => {
+  it('Debería ser una función', () => {
     expect(typeof tenerMd).toBe('function');
   });
-  it('debería retornar TRUE si el archivo tiene extensión .md', () => {
+  it('Debería retornar TRUE si el archivo tiene extensión .md', () => {
     expect(tenerMd('D:\\GitHub\\LIM014-mdlinks\\backend\\pruebalinks.md')).toBe(true);
   });
-  it('debería retornar FALSE si el archivo NO tiene extensión .md', () => {
+  it('Debería retornar FALSE si el archivo NO tiene extensión .md', () => {
     expect(tenerMd('D:\\GitHub\\LIM014-mdlinks\\backend\\cli.js')).toBe(false);
   });
 });
 
 //FUNCIÓN QUE VERIFICA SI ES UNA CARPETA O DIRECTORIO
 describe('Función que valida si la ruta pertenece a una carpeta o directorio', () => {
-  it('debería ser una función', () => {
+  it('Debería ser una función', () => {
     expect(typeof isDirectory).toBe('function');
   });
-  it('debería retornar TRUE si la ruta es un directorio', () => {
+  it('Debería retornar TRUE si la ruta es un directorio', () => {
     expect(isDirectory('D:\\GitHub\\LIM014-mdlinks\\test\\practica')).toBe(true);
   });
-  it('debería retornar FALSE si la ruta no existe', () => {
+  it('Debería retornar FALSE si la ruta no existe', () => {
     expect(isDirectory('D:\\GitHub\\LIM014-mdlinks\\backend\\pruebalinks.md')).toBe(false);
   });
 }); 
@@ -52,6 +52,11 @@ describe('Función que lee un directorio recursivamente', () => {
       'D:\\GitHub\\LIM014-mdlinks\\test\\practica\\prueba_directorio\\prueba_directorio2\\pruebalinks.md',
       'D:\\GitHub\\LIM014-mdlinks\\test\\practica\\prueba_directorio\\prueba_directorio2\\sin_LINKS.md',
       'D:\\GitHub\\LIM014-mdlinks\\test\\practica\\prueba_directorio\\sin_LINKS.md',
+    ]);
+  });
+  it('Debe devolver la ruta absoluta si se pasa un archivo con extensión .md' , () =>{
+    expect(getFiles(__dirname + "/sin_LINKS.md")).toEqual([
+      'D:\\GitHub\\LIM014-mdlinks\\test\\sin_LINKS.md',
     ]);
   });
 });
@@ -100,3 +105,16 @@ describe('Función que lee un directorio recursivamente', () => {
   const b = 'practica\prueba_directorio\CARP CON LINKS.md';
       
       */
+
+
+  /* const mdLinks = require('../backend');
+
+
+describe('mdLinks', () => {
+
+  it('should...', () => {
+    console.log('FIX ME!');
+  });
+
+});
+ */
