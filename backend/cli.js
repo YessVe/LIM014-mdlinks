@@ -61,9 +61,9 @@ const unique = (array) => {
 const options = program.opts();
 program
   .arguments("<path-to-file>")
-  .option('-s, --stats')
-  .option('-v, --validate')
-  .option('-s, -v --stats --validate')
+  .option('-s, --stats', 'Shows basic information about the links: The total and the unique ones.')
+  .option('-v, --validate', 'The module makes a HTTP request so it can show if the links work or not.')
+  .option('-s, -v --stats --validate', 'Shows the total, unique and broken links.')
   .parse(process.argv)
   .usage('test command', {
     username: 'user to login',
