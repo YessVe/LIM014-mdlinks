@@ -25,7 +25,7 @@ const getFiles = (ruta) => {
       if (isDirectory(subpath)) {
         return files.push(getFiles(rutaExiste(subpath)));
       } else if (tenerMd(subpath)) {
-        return files.push(rutaExiste(subpath));
+        return files.push(rutaExiste(subpath)); //caso base... para cuando encuentra el último archivo
       }
     });
   } else {
@@ -36,6 +36,7 @@ const getFiles = (ruta) => {
   return files.flat();
 };
 
+//FUNCIÓN QUE LEE UN ARCHIVO MARKDOWN, LO CONVIERTE A HTML Y TOMA LOS LINKS PARA SER DEVUELTOS EN UN ARRAY
 const leeUnArchivo = (path) => {
   const leerMd = fs.readFileSync(path, 'utf8');
   const tokens = marked.lexer(leerMd); //The Lexer builds an array of tokens, which will be passed to the Parser.
@@ -59,7 +60,7 @@ const leeUnArchivo = (path) => {
   return arrayLinks
 }
 
-//FUNCIÓN QUE DA LECTURA A UN ARCHIVO .MD, LA CONVIERTE EN HTML Y OBTIENES LOS LINKS - RESULTADO ES UN ARREGLO
+//FUNCIÓN CUANDO PASAS MÁS DE UN ARCHIVO .MD, SE LEE, LA CONVIERTE EN HTML Y OBTIENES LOS LINKS - RESULTADO ES UN ARREGLO
 const readFile = (ruta) => {
   let arrayLinks = ruta.map((elemento) => {
     return leeUnArchivo(elemento)

@@ -27,6 +27,7 @@
     "nodemon": "^2.0.7"
   },
   "scripts": {
-    "test": "jest --verbose --coverage"
+    "test": "jest --verbose --coverage",
+    "start": "node index.js"
   }
 }
