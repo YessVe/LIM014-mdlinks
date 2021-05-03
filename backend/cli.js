@@ -5,54 +5,15 @@ const md_Links = require('./index.js');
 const chalk = require('chalk')
 const pathNode = process.argv[2];
 
-const arrayprueba = [{
-    href: 'https://es.wikipedia.org/wiki/Markdown',
-    text: 'Markdown',
-    file: 'D:\\GitHub\\LIM014-mdlinks\\test\\practica\\prueba_directorio\\con_LINKS.md',
-    status: 200,
-    message: 'OK'
-  },
-  {
-    href: 'https://es.wikipedia.org/wiki/Markdown',
-    text: 'Markdown',
-    file: 'D:\\GitHub\\LIM014-mdlinks\\test\\practica\\prueba_directorio\\prueba_directorio2\\pruebalinks.md',
-    status: 200,
-    message: 'OK'
-  },
-  {
-    href: 'https://node.org/asd',
-    text: 'md-links',
-    file: 'D:\\GitHub\\LIM014-mdlinks\\backend\\pruebalinks.md',
-    status: 404,
-    message: 'FAIL'
-  },
-  {
-    href: 'https://es.wiki000000pedia.org/wiki/Markdown',
-    text: 'Node.js',
-    file: 'D:\\GitHub\\LIM014-mdlinks\\backend\\pruebalinks.md',
-    status: 500,
-    message: 'FAIL'
-  },
-  {
-    href: 'http://getstatuscode.com/500',
-    text: 'Dani se inventa un link parte 2',
-    file: 'D:\\GitHub\\LIM014-mdlinks\\backend\\pruebalinks.md',
-    status: 500,
-    message: 'FAIL'
-  }
-];
-
 const total = (array) => {
   let totalLinks = array.map((obj) => obj.href)
   return 'Total: ' + totalLinks.length
 }
-
 const broken = (array) => {
   let linksMessage = array.map((obj) => obj.message)
   let brokenLinks = linksMessage.filter((obj) => obj === 'FAIL')
   return 'Broken: ' + brokenLinks.length
 }
-
 const unique = (array) => {
   let linksHref = array.map((obj) => obj.href)
   let linksUnique = [...new Set(linksHref)];
@@ -60,15 +21,12 @@ const unique = (array) => {
 }
 const options = program.opts();
 program
-  .arguments("<path-to-file>")
+  .arguments('<path-to-file>')
+  .name('md-links')
   .option('-s, --stats', 'Shows basic information about the links: The total and the unique ones.')
   .option('-v, --validate', 'The module makes a HTTP request so it can show if the links work or not.')
   .option('-s, -v --stats --validate', 'Shows the total, unique and broken links.')
   .parse(process.argv)
-  .usage('test command', {
-    username: 'user to login',
-    password: 'password for user, if required'
-  })
   function cli(path, options) {
     md_Links.mdLinks(path, {
         validate: true
@@ -115,6 +73,4 @@ program
       })
   }
 
-
-  
   cli(pathNode, options);

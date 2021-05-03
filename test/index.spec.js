@@ -5,7 +5,10 @@ const {
   getFiles,
   readFile,
   validateLinks,
-  mdLinks} = require('../backend/index.js');
+  mdLinks,
+  leeUnArchivo} = require('../backend/index.js');
+const fetch = require('node-fetch')
+jest.mock('node-fetch')
 
 //FUNCIÓN QUE VALIDA SI UNA RUTA EXISTE Y LA DEVUELVE ABSOLUTA DE SER ASÍ
   describe('Función que debe determinar si la ruta existe y de ser así, cambiarla a absoluta', () => {
@@ -62,59 +65,146 @@ describe('Función que lee un directorio recursivamente', () => {
 });
 
 
-//VALIDAR QUE LA RUTA RELATIVA SE CONVIERTA EN ABSOLUTA
-/* describe('Función que convierte una ruta relativa en absoluta', () => {
-  const a = "D:\\GitHub\\LIM014-mdlinks\\README.md";
-  const b = "README.md";
-  it('debería ser una función', () => {
-    expect(typeof getAbsolute).toBe('function');
+//FUNCIÓN QUE LEE UN ARCHIVO MARKDOWN, LO CONVIERTE A HTML Y TOMA LOS LINKS PARA SER DEVUELTOS EN UN ARRAY
+describe('Función que lee un archivo .md, convierte a HTML y toma las etiquetas <a>',() => {
+  it('Debería ser una función', () => {
+    expect(typeof leeUnArchivo).toBe('function');
   });
-  it('debería convertir la ruta relativa en absoluta', () => {
-    expect(getAbsolute(b)).toEqual(a);
+  it('Debe devolver un array de links que fueron tomados del archivo markdown', () => {
+    expect(leeUnArchivo('D:\\GitHub\\LIM014-mdlinks\\test\\practica\\prueba_directorio\\con_LINKS.md')).toEqual([
+      {
+        href: 'https://es.wikipedia.org/wiki/Markdown',
+        text: 'Markdown',
+        file: 'D:\\GitHub\\LIM014-mdlinks\\test\\practica\\prueba_directorio\\con_LINKS.md'
+      },
+      {
+        href: 'https://nodejs.org/',
+        text: 'Node.js',
+        file: 'D:\\GitHub\\LIM014-mdlinks\\test\\practica\\prueba_directorio\\con_LINKS.md'
+      }
+    ]);
   });
-  it('no debería convertir una ruta absoluta, se debe quedar igual', () => {
-    expect(getAbsolute(a)).toEqual(a);
-  });
-}); */
-
-
-/* describe('cipher', () => {
-
-    it('should be an object', () => {
-      expect(typeof cipher).toBe('object');
-    });
-  
-    describe('esAbsoluta', () => {
-  
-      it('should be a function', () => {
-        expect(typeof esAbsoluta).toBe('function');
-      });
-  
-      it('should throw TypeError when invoked with wrong argument types', () => {
-        expect(() => esAbsoluta()).toThrow(TypeError);
-        expect(() => esAbsoluta(0)).toThrow(TypeError);
-        expect(() => esAbsoluta(null, [])).toThrow(TypeError);
-        expect(() => esAbsoluta(0, 0)).toThrow(TypeError);
-      });
-  
-      it('should return "HIJKLMNOPQRSTUVWXYZABCDEFG" for "ABCDEFGHIJKLMNOPQRSTUVWXYZ" with offset 33', () => {
-        expect(esAbsoluta(33, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ')).toBe('HIJKLMNOPQRSTUVWXYZABCDEFG');
-      });
-      
-        const a = 'D:\\GitHub\\LIM014-mdlinks\\practica\\prueba_directorio\\CARP CON LINKS.md';
-  const b = 'practica\prueba_directorio\CARP CON LINKS.md';
-      
-      */
-
-
-  /* const mdLinks = require('../backend');
-
-
-describe('mdLinks', () => {
-
-  it('should...', () => {
-    console.log('FIX ME!');
-  });
-
 });
- */
+
+//FUNCIÓN CUANDO PASAS MÁS DE UN ARCHIVO .MD, SE LEE, LA CONVIERTE EN HTML Y OBTIENES LOS LINKS - RESULTADO ES UN ARREGLO
+describe('Función que lee un archivo .md pero el input es más de un archivo',() => {
+  it('Debería ser una función', () => {
+    expect(typeof readFile).toBe('function');
+  });
+  it('Debe devolver un array de links que fueron tomados del archivo markdown', () => {
+    expect(readFile([
+      'D:\\GitHub\\LIM014-mdlinks\\test\\practica\\prueba_directorio\\prueba_directorio2\\pruebalinks.md',
+      'D:\\GitHub\\LIM014-mdlinks\\test\\practica\\prueba_directorio\\prueba_directorio2\\sin_LINKS.md',
+    ])).toEqual([
+      {
+        href: 'https://es.wikipedia.org/wiki/Markdown',
+        text: 'Markdown',
+        file: 'D:\\GitHub\\LIM014-mdlinks\\test\\practica\\prueba_directorio\\prueba_directorio2\\pruebalinks.md'
+      },
+      {
+        href: 'https://nodej000000s.org/es/',
+        text: 'Node.js',
+        file: 'D:\\GitHub\\LIM014-mdlinks\\test\\practica\\prueba_directorio\\prueba_directorio2\\pruebalinks.md'
+      },
+      {
+        href: 'https://www.lego.com/en-us/notfound',
+        text: 'Link roto',
+        file: 'D:\\GitHub\\LIM014-mdlinks\\test\\practica\\prueba_directorio\\prueba_directorio2\\pruebalinks.md'
+      }
+    ]);
+  });
+});
+
+
+//-------------VARIABLES PARA LA FUNCIÓN QUE VALIDA LOS LINKS------------//
+const objA = [
+  {
+    href: 'https://es.wikipedia.org/wiki/Markdown',
+    text: 'Markdown',
+    file: 'D:\\GitHub\\LIM014-mdlinks\\test\\practica\\prueba_directorio\\prueba_directorio2\\pruebalinks.md'
+  }
+]
+const objResolve = {
+  status: 200,
+  message: 'OK'
+}
+const objValidationA = [
+  {
+    href: 'https://es.wikipedia.org/wiki/Markdown',
+    text: 'Markdown',
+    file: 'D:\\GitHub\\LIM014-mdlinks\\test\\practica\\prueba_directorio\\prueba_directorio2\\pruebalinks.md',
+    status: 200,
+    message: 'OK'
+  }
+]
+
+const objB = [
+  {
+    href: 'https://nodej000000s.org/es/',
+    text: 'Node.js',
+    file: 'D:\\GitHub\\LIM014-mdlinks\\test\\practica\\prueba_directorio\\prueba_directorio2\\pruebalinks.md'
+  }
+]
+const objRejectionB = [
+  {
+    href: 'https://nodej000000s.org/es/',
+    text: 'Node.js',
+    file: 'D:\\GitHub\\LIM014-mdlinks\\test\\practica\\prueba_directorio\\prueba_directorio2\\pruebalinks.md',
+    status: 500,
+    message: 'FAIL'
+  }
+]
+const objReject = {
+  status: 500,
+  message: 'FAIL'
+}
+const objC = [
+  {
+    href: 'https://www.lego.com/en-us/notfound',
+    text: 'Link roto',
+    file: 'D:\\GitHub\\LIM014-mdlinks\\test\\practica\\prueba_directorio\\prueba_directorio2\\pruebalinks.md'
+  }
+]
+const objValidationC = [
+  {
+    href: 'https://www.lego.com/en-us/notfound',
+    text: 'Link roto',
+    file: 'D:\\GitHub\\LIM014-mdlinks\\test\\practica\\prueba_directorio\\prueba_directorio2\\pruebalinks.md',
+    status: 404,
+    message: 'FAIL'
+  }
+]
+const objResolveC = {
+  status: 404,
+  message: 'FAIL'
+}
+
+//FUNCIÓN QUE VALIDA SI LOS LINKS ESTÁN 'OK' O 'FAIL'
+describe('Función que valida si los links están OK o FAIL', () => {
+  it('Debería ser una función', () => {
+    expect(typeof validateLinks).toBe('function')
+  })
+  it('Debe retornar error cuando se invoca con un tipo de argumento errado', () => {
+    expect(() => validateLinks()).toThrowError(TypeError)
+    expect(() => validateLinks(0)).toThrowError()
+    expect(() => validateLinks(null)).toThrowError()
+  })
+  test('mock promise resolution 200', async () => {
+    fetch.mockResolvedValue(objResolve)
+    return Promise.all(validateLinks(objA)).then((data) => {
+      expect(data).toEqual(objValidationA)
+    })
+  })
+  test('mock promise rejection', async () => {
+    fetch.mockRejectedValue(objReject)
+    return Promise.all(validateLinks(objB)).then((data) => {
+      expect(data).toEqual(objRejectionB)
+    })
+  })
+  test('mock promise resolution 404', async () => {
+    fetch.mockResolvedValue(objResolveC)
+    return Promise.all(validateLinks(objC)).then((data) => {
+      expect(data).toEqual(objValidationC)
+    })
+  })
+})
