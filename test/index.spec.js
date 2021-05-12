@@ -189,19 +189,19 @@ describe('Función que valida si los links están OK o FAIL', () => {
     expect(() => validateLinks(0)).toThrowError()
     expect(() => validateLinks(null)).toThrowError()
   })
-  test('mock promise resolution 200', async () => {
+  test('Mock promise resolution 200', async () => {
     fetch.mockResolvedValue(objResolve)
     return Promise.all(validateLinks(objA)).then((data) => {
       expect(data).toEqual(objValidationA)
     })
   })
-  test('mock promise rejection', async () => {
+  test('Mock promise rejection', async () => {
     fetch.mockRejectedValue(objReject)
     return Promise.all(validateLinks(objB)).then((data) => {
       expect(data).toEqual(objRejectionB)
     })
   })
-  test('mock promise resolution 404', async () => {
+  test('Mock promise resolution 404', async () => {
     fetch.mockResolvedValue(objResolveC)
     return Promise.all(validateLinks(objC)).then((data) => {
       expect(data).toEqual(objValidationC)
