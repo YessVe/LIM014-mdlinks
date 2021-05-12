@@ -148,5 +148,5 @@ También podemos combinar `--stats` y `--validate` para obtener estadísticas qu
 
 ## 5. Instalación
 
-Módulo instalable via `npm install <github-user>/md-links`. Este módulo incluye tanto **un ejecutable** como **una interfaz** que podamos importar con `require` para usarlo programáticamente.
+Módulo instalable via `npm i yessve-md-links`. Este módulo incluye tanto **un ejecutable** como **una interfaz** que podamos importar con `require` para usarlo programáticamente.
 
